@@ -1,0 +1,10 @@
+main: me.Unweptpit.HalloweenPicnic.Main
+name: HalloweenPicnic
+version: 1.0
+author: Unweptpit
+api-version: 1.16
+
+
+commands:
+  halloween:
+  
