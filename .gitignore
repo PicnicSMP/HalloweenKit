@@ -1,3 +1,5 @@
-.classpath
-.project
+run/*
+bin/*
+!run/.readme
+!run/Spigot/eula.txt
 org.eclipse.jdt.core.prefs

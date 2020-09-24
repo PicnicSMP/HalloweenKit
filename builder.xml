@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<!-- Configuration of the Ant build system to generate a Jar file -->
+<project name="HalloweenKit" default="CreateJar">
+  <target name="CreateJar" description="Create Jar file">
+        <jar jarfile="./run/Spigot/plugins/HalloweenKit.jar" basedir="./bin/" includes="**/*" />
+  </target>
+</project>
