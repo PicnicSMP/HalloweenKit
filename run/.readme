@@ -1,0 +1,6 @@
+# Run Configurations
+This Folder is for holding the development server and acts as the build target for the project. 
+- Place Your Spigot JAR file (With Version Number; spigot-1.16.3.jar) into /run/Spigot
+- Run Spigot Server from Run Configurations.
+
+
