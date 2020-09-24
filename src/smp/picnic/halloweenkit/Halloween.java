@@ -1,4 +1,4 @@
-package me.Unweptpit.HalloweenPicnic;
+package smp.picnic.halloweenkit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +94,7 @@ public class Halloween implements CommandExecutor, Listener {
 			
 			return true;
 		}
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -187,7 +187,7 @@ public class Halloween implements CommandExecutor, Listener {
 			
 			bats.setCustomName(ChatColor.GOLD + "Happy Halloween!");
 		
-			Bukkit.getScheduler().runTaskLater(me.Unweptpit.HalloweenPicnic.Main.getPlugin(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(smp.picnic.halloweenkit.Main.getPlugin(), new Runnable() {
 			 
 				@Override
 				public void run() {
