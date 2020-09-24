@@ -28,18 +28,19 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-
 public class Halloween implements CommandExecutor, Listener {
-	private final Main main;
-	
-	public Halloween(Main main){
+
+	String worldName = "world";
+	private final smp.picnic.halloweenkit.Main main;
+
+
+	public Halloween(smp.picnic.halloweenkit.Main main) {
 		this.main = main;
 	}
-	String worldName = "world";
-	
 
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
     
@@ -156,7 +157,7 @@ public class Halloween implements CommandExecutor, Listener {
 	        PotionEffect E2 = new PotionEffect(PotionEffectType.GLOWING, 20 * durationE2, 1);
 			player.addPotionEffect(E1);
 			player.addPotionEffect(E2);
-			World world = player.getWorld();
+			World world = (World) Bukkit.getWorld(worldName);
 			world.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 5, 1);
 		}
 	}
@@ -178,76 +179,41 @@ public class Halloween implements CommandExecutor, Listener {
 	@EventHandler()
 	public void onImpact(ProjectileHitEvent e) {
 		if(halloweenBalls.contains(e.getEntity().getUniqueId())){
-			BlockFace hitFace = (BlockFace) e.getHitBlockFace();
-			Block relativeBlock = e.getHitBlock().getRelative(hitFace);
-			Location loc = relativeBlock.getLocation();
-			World world = loc.getWorld();
-			world.playSound(loc, Sound.ENTITY_SPIDER_HURT, 5, 1);
-			int deathTime = 3;
-			
-			Bat bats = (Bat) world.spawnEntity(loc, EntityType.BAT);
-			
-			bats.setCustomName(ChatColor.GOLD + "Happy Halloween!");
-		
-			Bukkit.getScheduler().runTaskLater(main, new Runnable() {
-			 
-				@Override
-				public void run() {
-					world.dropItem(bats.getLocation(), Halloweendiamond());
-					world.playSound(bats.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 10, 1);
-					world.spawnParticle(Particle.FIREWORKS_SPARK, bats.getLocation(), 5);
-					bats.setHealth(0.0);
-				}
-		 
-			}, 20*deathTime);
+			if (!(e.getHitBlock() == null)) {
+				BlockFace hitFace = (BlockFace) e.getHitBlockFace();
+				Block relativeBlock = e.getHitBlock().getRelative(hitFace);
+				Location loc = relativeBlock.getLocation();
+				spawnBat(loc);
+			}
+			else if (!(e.getEntityType() == null)) {
+				Location loc = e.getEntity().getLocation();
+				spawnBat(loc);
+			}
 		}
-			
-			
-		
-		
-		
-		
 	}
 	
 	
 	
+	public void spawnBat(Location loc) {
+		World world = (World) Bukkit.getWorld(worldName);
+		world.playSound(loc, Sound.ENTITY_SPIDER_HURT, 5, 1);
+		int deathTime = 3;
+		
+		Bat bats = (Bat) world.spawnEntity(loc, EntityType.BAT);
+		
+		bats.setCustomName(ChatColor.GOLD + "Happy Halloween!");
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		Bukkit.getScheduler().runTaskLater((Plugin) main, new Runnable() {
+		 
+			@Override
+			public void run() {
+				world.dropItem(bats.getLocation(), Halloweendiamond());
+				world.playSound(bats.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 10, 1);
+				world.spawnParticle(Particle.FIREWORKS_SPARK, bats.getLocation(), 5);
+				bats.setHealth(0.0);
+			}
+	 
+		}, 20*deathTime);
+	}
 	
 }
