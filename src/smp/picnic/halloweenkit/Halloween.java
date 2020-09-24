@@ -18,7 +18,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.Main;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -32,12 +31,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Halloween implements CommandExecutor, Listener {
 
+public class Halloween implements CommandExecutor, Listener {
+	private final Main main;
+	
+	public Halloween(Main main){
+		this.main = main;
+	}
 	String worldName = "world";
 	
-	public void onImpact(Main Plugin) {
-	}
 
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
     
@@ -154,7 +156,7 @@ public class Halloween implements CommandExecutor, Listener {
 	        PotionEffect E2 = new PotionEffect(PotionEffectType.GLOWING, 20 * durationE2, 1);
 			player.addPotionEffect(E1);
 			player.addPotionEffect(E2);
-			World world = (World) Bukkit.getWorld(worldName);
+			World world = player.getWorld();
 			world.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 5, 1);
 		}
 	}
@@ -179,7 +181,7 @@ public class Halloween implements CommandExecutor, Listener {
 			BlockFace hitFace = (BlockFace) e.getHitBlockFace();
 			Block relativeBlock = e.getHitBlock().getRelative(hitFace);
 			Location loc = relativeBlock.getLocation();
-			World world = (World) Bukkit.getWorld(worldName);
+			World world = loc.getWorld();
 			world.playSound(loc, Sound.ENTITY_SPIDER_HURT, 5, 1);
 			int deathTime = 3;
 			
@@ -187,7 +189,7 @@ public class Halloween implements CommandExecutor, Listener {
 			
 			bats.setCustomName(ChatColor.GOLD + "Happy Halloween!");
 		
-			Bukkit.getScheduler().runTaskLater(smp.picnic.halloweenkit.Main.getPlugin(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(main, new Runnable() {
 			 
 				@Override
 				public void run() {
