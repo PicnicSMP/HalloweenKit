@@ -8,16 +8,18 @@ A Little Halloween Kit for Halloween 2020
 - A copy of the current version of Spigot downloaded or built locally with [BuildTools](https://www.spigotmc.org/wiki/buildtools/).
 
 ### Setup
-- Clone and Checkout the project (dev branch)
-- Copy your `spigot-1.16.3.jar` to the `/run/Spigot` directory
-- Import the project into Eclipse and select `Spigot Server` from the launch menu to verify everything works.
+- Clone and Checkout the project (dev branch).
+- Copy your `spigot-1.16.3.jar` to the `/run/Spigot` directory.
+- Import the project into Eclipse.
+- Open project settings, open run/debug configuration. Select import, and select the `Spigot Server.launch` file.
+- Select Run, And run as `Spigot Server`.
 
 ## The Process
 The process employed by this project place emphasis on local feature development, and collective integration and testing. This means;
 - When working on a new feature or bugfix create a local feature branch for development.
 - Once completed merge the local feature branch into the `dev` for review and collective testing. 
 - When a set of updates are considered 'stable' the `dev` branch will be merged into the `build` branch and a copy of the plugin jar file will be made available for download. 
-- The `main` branch will catch up to the build branch once builds are successuly installed onto the production server.
+- The `main` branch will catch up to the build branch once builds are successfully installed onto the production server.
 
 ## Versioning
 To Keep it simple we'll be using a flavour of [semver](https://semver.org/); MAJOR.MINOR.PATCH-BUILD where;
