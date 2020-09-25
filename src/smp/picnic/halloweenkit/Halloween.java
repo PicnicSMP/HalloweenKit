@@ -246,9 +246,9 @@ public class Halloween implements CommandExecutor, Listener {
 
 	@EventHandler()
 	public void onLaunch(ProjectileLaunchEvent e) {
-		if (e.getEntity() instanceof Player) {
+		if (e.getEntity().getShooter() instanceof Player) {
 			Player player = (Player) e.getEntity().getShooter();
-			if(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.translateAlternateColorCodes('&', "&8[&6Event&8] &dBat Snowball")))
+			if(player.getInventory().getItemInMainHand().isSimilar(snowBat()))
 					{
 					            halloweenBalls.add(e.getEntity().getUniqueId());
 					}
