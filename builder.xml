@@ -1,7 +1,20 @@
 <?xml version="1.0" ?>
 <!-- Configuration of the Ant build system to generate a Jar file -->
 <project name="HalloweenKit" default="CreateJar">
-  <target name="CreateJar" description="Create Jar file">
-        <jar jarfile="./run/Spigot/plugins/HalloweenKit.jar" basedir="./bin/" includes="**/*" />
-  </target>
+	<property name="revision" value="1.16.3"/>
+
+	<condition property="HasSpigot">
+	    <available file="./run/Spigot/spigot-${revision}.jar" />
+	</condition>
+	<target name="Setup" description="Project Setup" unless="HasSpigot">
+		<mkdir dir="BuildTools" />
+		<get src="https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar" dest="./BuildTools/BuildTools.jar" />
+		<java jar="BuildTools/BuildTools.jar" fork="true" failonerror="true" maxmemory="1024m" dir="./BuildTools/">
+			<arg line="--rev ${revision} --output-dir ../run/Spigot" />
+		</java>
+		<delete dir="BuildTools" />
+	</target>
+	<target name="CreateJar" description="Create Jar file" depends="Setup">
+		<jar jarfile="./run/Spigot/plugins/HalloweenKit.jar" basedir="./bin/" includes="**/*" />
+	</target>
 </project>

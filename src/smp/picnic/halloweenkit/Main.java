@@ -1,26 +1,23 @@
 package smp.picnic.halloweenkit;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 
+
 public class Main extends JavaPlugin implements Listener {
-	private static Plugin plugin;
 
 	@Override
 	public void onEnable() {
+		Bukkit.getServer().getPluginManager().registerEvents(new Halloween(this), this);
 
-		PluginManager pm = getServer().getPluginManager();
 		
-		this.getCommand("halloween").setExecutor(new Halloween());
-		Halloween halloweenListeners = new Halloween();
+		this.getCommand("halloween").setExecutor(new Halloween(this));
+
 		
-		pm.registerEvents(halloweenListeners, this);
 		
-		plugin = this;
 	}
 	
 	
@@ -30,10 +27,6 @@ public class Main extends JavaPlugin implements Listener {
 	public void onDisable() {
 
 	}
-
-	public static Plugin getPlugin() {
-	    return plugin;
-	  }
 
 
 }
