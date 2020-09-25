@@ -1,6 +1,6 @@
 main: smp.picnic.halloweenkit.Main
 name: HalloweenPicnic
-version: 1.0
+version: 1.0.0.240920
 author: Unweptpit
 api-version: 1.16
 
