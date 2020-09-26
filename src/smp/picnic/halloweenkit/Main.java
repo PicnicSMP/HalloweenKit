@@ -12,10 +12,11 @@ public class Main extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		Bukkit.getServer().getPluginManager().registerEvents(new Halloween(this), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(), this);
+		Halloween halloweenInst = new Halloween(this);
+		Bukkit.getServer().getPluginManager().registerEvents(halloweenInst, this);
+		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(halloweenInst), this);
 		
-		this.getCommand("halloween").setExecutor(new Halloween(this));		
+		this.getCommand("halloween").setExecutor(halloweenInst);		
 	}
 	
 	
