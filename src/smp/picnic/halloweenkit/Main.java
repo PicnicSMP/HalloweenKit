@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 	Local Imports
 */
 import smp.picnic.halloweenkit.listeners.MobListener;
+import smp.picnic.halloweenkit.listeners.PlayerListener;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -14,6 +15,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void onEnable() {
 		Halloween halloweenInst = new Halloween(this);
 		Bukkit.getServer().getPluginManager().registerEvents(halloweenInst, this);
+		Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(halloweenInst), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(halloweenInst), this);
 		
 		this.getCommand("halloween").setExecutor(halloweenInst);		

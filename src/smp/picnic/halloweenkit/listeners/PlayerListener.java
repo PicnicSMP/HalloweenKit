@@ -1,17 +1,12 @@
 package smp.picnic.halloweenkit.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.SkeletonHorse;
-import org.bukkit.entity.ZombieHorse;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -19,7 +14,18 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import smp.picnic.halloweenkit.Halloween;
+import smp.picnic.halloweenkit.HorseConverter;
+
 public class PlayerListener implements Listener {
+	
+	private Halloween halloweenInst;
+	private HorseConverter horseConverter;
+	public PlayerListener (Halloween halloweenInst) {
+		this.halloweenInst = halloweenInst;
+		this.horseConverter = new HorseConverter();
+	}
+	
 	@EventHandler()
 	public void onHorseClick(PlayerInteractEntityEvent e) {
 		World world = e.getPlayer().getWorld();
@@ -28,19 +34,19 @@ public class PlayerListener implements Listener {
 		
 		if (e.getRightClicked().getType() == EntityType.HORSE) {
 			
-			if (player.getInventory().getItemInMainHand().isSimilar(HorseBone())){ 			 								//Check the item in the players main hand and compare it with ItemStack HorseBone()
+			if (player.getInventory().getItemInMainHand().isSimilar(this.horseConverter.getHorseBone())){ 			 								//Check the item in the players main hand and compare it with ItemStack HorseBone()
 				if (player.getGameMode() != GameMode.CREATIVE) { 															//If the players gamemode is not creative remove one from the item stack
 					player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() -1);
 				}
-				convertToSkeletonHorse(horse, player, world);
+				this.horseConverter.convertToSkeletonHorse(horse, player, world);
 			}
 				
-			else if (player.getInventory().getItemInMainHand().isSimilar(HorseFlesh())) {
+			else if (player.getInventory().getItemInMainHand().isSimilar(this.horseConverter.getHorseFlesh())) {
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() -1);
 				}
 				
-				convertToZombieHorse(horse, player, world);
+				this.horseConverter.convertToZombieHorse(horse, player, world);
 				
 			}
 		}	
@@ -48,7 +54,7 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler()
 	public void onEat(PlayerItemConsumeEvent e) {
-		if (e.getItem().isSimilar(pumpkinPie())) {
+		if (e.getItem().isSimilar(this.halloweenInst.pumpkinPie())) {
 			Player player = (Player) e.getPlayer();
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&o&5You're feeling lighter..."));
 			int durationE1 = 20;

@@ -17,8 +17,8 @@ import org.bukkit.entity.ZombieHorse;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class HorseConversion {
-	public ItemStack HorseBone() {
+public class HorseConverter {
+	public ItemStack getHorseBone() {
 		String itemLore = "Right Click me on a horse";
 		ItemStack HorseBone = new ItemStack(Material.BONE);
 		ItemMeta HorseBoneMeta = HorseBone.getItemMeta();
@@ -33,7 +33,7 @@ public class HorseConversion {
 		return HorseBone;
 	}
 	
-	public ItemStack HorseFlesh() {
+	public ItemStack getHorseFlesh() {
 		String itemLore = "Right Click me on a horse";
 		ItemStack HorseFlesh = new ItemStack(Material.ROTTEN_FLESH);
 		ItemMeta HorseFleshMeta = HorseFlesh.getItemMeta();
@@ -48,7 +48,7 @@ public class HorseConversion {
 		return HorseFlesh;
 	}
 	
-	public boolean convertToSkeletonHorse(Entity horse, Player player, World world){
+	public void convertToSkeletonHorse(Entity horse, Player player, World world){
 		
 			Location loc = horse.getLocation();
 			horse.remove();																								//Remove old horse
@@ -60,11 +60,11 @@ public class HorseConversion {
 			newHorse.setOwner(player);																					//Make the player owner of the horse
 			newHorse.setTamed(true);																					//Make the horse tamed
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8&oThis horse looks different.."));
-			return true;
+			
 	}
 	
 	
-	public boolean convertToZombieHorse(Entity horse, Player player, World world){
+	public void convertToZombieHorse(Entity horse, Player player, World world){
 		Location loc = horse.getLocation();
 		horse.remove();
 		ZombieHorse newHorse = (ZombieHorse) world.spawnEntity(loc, EntityType.ZOMBIE_HORSE);

@@ -100,7 +100,7 @@ public class Halloween implements CommandExecutor, Listener {
 			player.getInventory().addItem(pumpkinPie());
 			}
 			
-			player.getInventory().addItem(HorseBone());
+			player.getInventory().addItem(getHorseBone());
 			player.getInventory().addItem(HorseFlesh());
 			
 			return true;

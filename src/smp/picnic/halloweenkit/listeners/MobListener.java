@@ -17,7 +17,9 @@ import smp.picnic.halloweenkit.PumpkinHeadManager;
  *
  */
 public class MobListener implements Listener {
+	
 	private PumpkinHeadManager pumpkinHeadManager;
+	
 	public MobListener (Halloween halloweenInst) {
 		pumpkinHeadManager = new PumpkinHeadManager(halloweenInst);
 	}
