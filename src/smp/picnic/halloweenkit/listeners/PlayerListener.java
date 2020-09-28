@@ -20,10 +20,10 @@ import smp.picnic.halloweenkit.Main;
 
 public class PlayerListener implements Listener {
 	
-	private PlayerListener playerlistenerInst;
+	Halloween halloween;
 	
-	Halloween halloweenInst = new Halloween(playerlistenerInst);
-	HorseConverter horseconverterInst = new HorseConverter(playerlistenerInst);
+	Halloween halloweenInst = new Halloween(halloween);
+	HorseConverter horseconverterInst = new HorseConverter(halloween);
 	
 	Main main;
 	public PlayerListener(Main instance) {

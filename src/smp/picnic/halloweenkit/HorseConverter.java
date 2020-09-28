@@ -17,8 +17,6 @@ import org.bukkit.entity.ZombieHorse;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import smp.picnic.halloweenkit.listeners.PlayerListener;
-
 public class HorseConverter {
 	
 	Halloween halloweenInst;
@@ -26,12 +24,7 @@ public class HorseConverter {
 	public HorseConverter(Halloween instance) {
 		this.halloweenInst = instance;
 	}
-	
-	PlayerListener playerlistenerInst;
-	
-	public HorseConverter(PlayerListener instance) {
-		this.playerlistenerInst = instance;
-	}
+
 	
 	
 	

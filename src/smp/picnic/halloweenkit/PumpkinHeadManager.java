@@ -16,9 +16,6 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import smp.picnic.halloweenkit.listeners.MobListener;
-
-
 /**
  * @author David
  */
@@ -33,18 +30,12 @@ public class PumpkinHeadManager {
 	
 	private Halloween halloweenInst;
 	
-	PumpkinHeadManager pumpkinheadmanagerInst;
-	MobListener moblistenerInst;
-	SnowballBat snowballbatInst = new SnowballBat(pumpkinheadmanagerInst);
+	SnowballBat snowballbatInst = new SnowballBat(halloweenInst);
 	
 	public PumpkinHeadManager (Halloween halloweenInst) {
 		this.halloweenInst = halloweenInst;
 	}
 	
-	
-	public PumpkinHeadManager(MobListener instance) {
-		this.moblistenerInst = instance;
-	}
 
 	public boolean attemptConversion(LivingEntity zombie) {
 		if(randomSelection()) {

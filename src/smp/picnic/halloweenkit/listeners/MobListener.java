@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
+import smp.picnic.halloweenkit.Halloween;
 import smp.picnic.halloweenkit.Main;
 import smp.picnic.halloweenkit.PumpkinHeadManager;
 
@@ -17,8 +18,8 @@ import smp.picnic.halloweenkit.PumpkinHeadManager;
  *
  */
 public class MobListener implements Listener {
-	MobListener moblistenerInst;
-	PumpkinHeadManager pumpkinHeadManagerInst = new PumpkinHeadManager(moblistenerInst);
+	Halloween halloween;
+	PumpkinHeadManager pumpkinHeadManagerInst = new PumpkinHeadManager(halloween);
 	
 	public MobListener (PumpkinHeadManager instance) {
 		pumpkinHeadManagerInst = instance;

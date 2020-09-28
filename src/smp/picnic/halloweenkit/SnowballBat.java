@@ -19,24 +19,12 @@ import org.bukkit.plugin.Plugin;
 
 public class SnowballBat {
 
-	SnowballBat snowballbatInst;
-	
-	public SnowballBat(SnowballBat snowballBatInst) {
-		
-		this.snowballbatInst = snowballBatInst;
-	}
-	
 	Halloween halloweenInst;
 	
 	public SnowballBat(Halloween halloween) {
 		this.halloweenInst = halloween;
 	}
 	
-	PumpkinHeadManager pumpkinheadManagerInst;
-	
-	public SnowballBat(PumpkinHeadManager pumpkinheadmanagerInst) {
-		this.pumpkinheadManagerInst = pumpkinheadmanagerInst;
-	}
 	
 	Main main;
 	
