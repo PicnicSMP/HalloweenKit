@@ -15,7 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import smp.picnic.halloweenkit.listeners.PlayerListener;
 
 public class Halloween implements CommandExecutor, Listener {
 
@@ -28,12 +27,6 @@ public class Halloween implements CommandExecutor, Listener {
 		this.halloweenInst = instance;
 	}
 	
-	PlayerListener playerlistenerInst;
-	
-	public Halloween(PlayerListener instance) {
-		
-		this.playerlistenerInst = instance;
-	}
 	
 	Main main;
 	public Halloween(Main instance) {
