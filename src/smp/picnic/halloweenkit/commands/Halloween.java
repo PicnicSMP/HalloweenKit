@@ -1,42 +1,29 @@
-package smp.picnic.halloweenkit;
+package smp.picnic.halloweenkit.commands;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import smp.picnic.halloweenkit.HalloweenKit;
+import smp.picnic.halloweenkit.HorseConverter;
+import smp.picnic.halloweenkit.SnowballBat;
 
-
-public class Halloween implements CommandExecutor, Listener {
+public class Halloween implements CommandExecutor {
 
 	String worldName = "world";
 	
-	Halloween halloweenInst;
-	
-	public Halloween(Halloween instance) {
-		
-		this.halloweenInst = instance;
+	HalloweenKit plugin;
+	public Halloween(HalloweenKit plugin) {
+		this.plugin = plugin;
 	}
 	
+	SnowballBat snowballbatInst = new SnowballBat(this.plugin);
 	
-	Main main;
-	public Halloween(Main instance) {
-		this.main = instance;
-	}
-	
-	
-	SnowballBat snowballbatInst = new SnowballBat(halloweenInst);
-	
-	HorseConverter horseconverterInst = new HorseConverter(halloweenInst);
+	HorseConverter horseconverterInst = new HorseConverter(this.plugin);
 
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
     
@@ -88,7 +75,7 @@ public class Halloween implements CommandExecutor, Listener {
 			player.getInventory().addItem(snowballbatInst.snowBat());
 			}
 			for (int i = 0; i < Amount_pumpkinPie; i++) {
-			player.getInventory().addItem(pumpkinPie());
+			player.getInventory().addItem(plugin.pumpkinPie());
 			}
 			
 			player.getInventory().addItem(horseconverterInst.getHorseBone());
@@ -100,38 +87,9 @@ public class Halloween implements CommandExecutor, Listener {
 		return false;
 	}
 
+
 	
-	public ItemStack pumpkinPie() {
-		String itemLore = "Halloween Snack";
-		ItemStack pumpkinpie = new ItemStack(Material.PUMPKIN_PIE);
-		ItemMeta pumpkinpieMeta = pumpkinpie.getItemMeta();
-		List<String> pumpkinpieLore = new ArrayList<String>();
-		
-				
-		pumpkinpieLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		pumpkinpieMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&6Event&8] &dPumpkin Pie!"));
-		pumpkinpieMeta.setLore(pumpkinpieLore);
-		pumpkinpie.setItemMeta(pumpkinpieMeta);
-		
-		return  pumpkinpie;
-						
-	}
-	
-	
-	
-	public ItemStack Halloweendiamond() {
-		String itemLore = "Happy Halloween!";
-		ItemStack diamond = new ItemStack(Material.DIAMOND);
-		ItemMeta diamondmeta = diamond.getItemMeta();
-		List<String> diamondlore = new ArrayList<String>();
-		
-		diamondmeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&6Event&8] &dHalloween Diamond"));
-		diamondlore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		diamondmeta.setLore(diamondlore);
-		diamond.setItemMeta(diamondmeta);
-		
-		return diamond;
-	}
+
 	
 
 	

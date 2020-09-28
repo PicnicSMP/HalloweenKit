@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import smp.picnic.halloweenkit.Halloween;
+import smp.picnic.halloweenkit.HalloweenKit;
 import smp.picnic.halloweenkit.PumpkinHeadManager;
 
 /**
@@ -17,15 +17,13 @@ import smp.picnic.halloweenkit.PumpkinHeadManager;
  *
  */
 public class MobListener implements Listener {
-	Halloween halloween;
-	PumpkinHeadManager pumpkinHeadManagerInst = new PumpkinHeadManager(halloween);
 	
-	public MobListener (Halloween instance) {
-		halloween = instance;
+	private PumpkinHeadManager pumpkinHeadManagerInst;
+	
+	public MobListener (HalloweenKit plugin) {
+		pumpkinHeadManagerInst = new PumpkinHeadManager(plugin);
 	}
-	
-	
-	
+		
 	@EventHandler()
 	public void onCreatureSpawn (CreatureSpawnEvent event) {
 		//	Check the entity type, and confirm its a zombie.

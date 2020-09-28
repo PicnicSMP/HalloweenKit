@@ -14,19 +14,19 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import smp.picnic.halloweenkit.Halloween;
 import smp.picnic.halloweenkit.HorseConverter;
+import smp.picnic.halloweenkit.HalloweenKit;
 
 public class PlayerListener implements Listener {
 	
-	Halloween halloween;
+	HalloweenKit plugin;
+	HorseConverter horseConverterInst; 
 	
-	Halloween halloweenInst = new Halloween(halloween);
-	HorseConverter horseconverterInst = new HorseConverter(halloween);
-	
-	public PlayerListener (Halloween instance) {
-		halloween = instance;
+	public PlayerListener(HalloweenKit plugin) {
+		this.plugin = plugin;
+		this.horseConverterInst = new HorseConverter(plugin);
 	}
+	
 	
 	@EventHandler()
 	public void onHorseClick(PlayerInteractEntityEvent e) {
@@ -36,19 +36,19 @@ public class PlayerListener implements Listener {
 		
 		if (e.getRightClicked().getType() == EntityType.HORSE) {
 			
-			if (player.getInventory().getItemInMainHand().isSimilar(horseconverterInst.getHorseBone())){ 			 								//Check the item in the players main hand and compare it with ItemStack HorseBone()
+			if (player.getInventory().getItemInMainHand().isSimilar(horseConverterInst.getHorseBone())){ 			 								//Check the item in the players main hand and compare it with ItemStack HorseBone()
 				if (player.getGameMode() != GameMode.CREATIVE) { 															//If the players gamemode is not creative remove one from the item stack
 					player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() -1);
 				}
-				horseconverterInst.convertToSkeletonHorse(horse, player, world);
+				horseConverterInst.convertToSkeletonHorse(horse, player, world);
 			}
 				
-			else if (player.getInventory().getItemInMainHand().isSimilar(horseconverterInst.getHorseFlesh())) {
+			else if (player.getInventory().getItemInMainHand().isSimilar(horseConverterInst.getHorseFlesh())) {
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() -1);
 				}
 				
-				horseconverterInst.convertToZombieHorse(horse, player, world);
+				horseConverterInst.convertToZombieHorse(horse, player, world);
 				
 			}
 		}	
@@ -56,7 +56,7 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler()
 	public void onEat(PlayerItemConsumeEvent e) {
-		if (e.getItem().isSimilar(this.halloweenInst.pumpkinPie())) {
+		if (e.getItem().isSimilar(plugin.pumpkinPie())) {
 			Player player = (Player) e.getPlayer();
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&o&5You're feeling lighter..."));
 			int durationE1 = 20;

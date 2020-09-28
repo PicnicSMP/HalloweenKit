@@ -19,14 +19,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class HorseConverter {
 	
-	Halloween halloweenInst;
+	HalloweenKit plugin;
 	
-	public HorseConverter(Halloween instance) {
-		this.halloweenInst = instance;
+	public HorseConverter(HalloweenKit plugin) {
+		this.plugin = plugin;
 	}
-
-	
-	
 	
 	public ItemStack getHorseBone() {
 		String itemLore = "Right Click me on a horse";
@@ -86,12 +83,6 @@ public class HorseConverter {
 		newHorse.setTamed(true);
 		player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8&oThis horse looks different.."));
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 }

@@ -1,4 +1,4 @@
-main: smp.picnic.halloweenkit.Main
+main: smp.picnic.halloweenkit.HalloweenKit
 name: HalloweenPicnic
 version: 1.2.0.260920
 author: Unweptpit

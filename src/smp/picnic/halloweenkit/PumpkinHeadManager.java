@@ -28,12 +28,13 @@ public class PumpkinHeadManager {
 	public static int BAT_RATE_MIN = 3;
 	public static int BAT_RATE_MAX = 7;
 	
-	private Halloween halloweenInst;
+	private HalloweenKit plugin;
 	
-	SnowballBat snowballbatInst = new SnowballBat(halloweenInst);
+	private SnowballBat snowballbatInst;
 	
-	public PumpkinHeadManager (Halloween halloweenInst) {
-		this.halloweenInst = halloweenInst;
+	public PumpkinHeadManager (HalloweenKit plugin) {
+		this.plugin = plugin;
+		this.snowballbatInst = new SnowballBat(plugin);
 	}
 	
 
@@ -63,7 +64,7 @@ public class PumpkinHeadManager {
 		// Set PumpkinPie Drop Count, offset by MIN drop rate.
 		int randomInt = Math.max(rand.nextInt(PumpkinHeadManager.DROP_RATE_MAX + 1), PumpkinHeadManager.DROP_RATE_MIN);
 		if(randomInt != 0) {
-			ItemStack pies  = this.halloweenInst.pumpkinPie();
+			ItemStack pies  = this.plugin.pumpkinPie();
 			pies.setAmount(randomInt);
 			drops.add(pies);
 		}

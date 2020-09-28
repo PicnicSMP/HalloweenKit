@@ -19,20 +19,12 @@ import org.bukkit.plugin.Plugin;
 
 public class SnowballBat {
 
-	Halloween halloweenInst;
+	private HalloweenKit plugin;
 	
-	public SnowballBat(Halloween halloween) {
-		this.halloweenInst = halloween;
+	public SnowballBat(HalloweenKit plugin) {
+		this.plugin = plugin;
 	}
-	
-	
-	Main main;
-	
-	public SnowballBat(Main instance) {
-		this.main = instance;
-	}
-
-	
+		
 	public ItemStack snowBat() {
 		String itemLore = "Throw me!";
 		ItemStack snowbat = new ItemStack(Material.SNOWBALL);
@@ -56,11 +48,11 @@ public class SnowballBat {
 		
 		bats.setCustomName(ChatColor.GOLD + "Happy Halloween!");
 	
-		Bukkit.getScheduler().runTaskLater((Plugin) main, new Runnable() {
+		Bukkit.getScheduler().runTaskLater((Plugin) this.plugin, new Runnable() {
 		 
 			@Override
 			public void run() {
-				world.dropItem(bats.getLocation(), halloweenInst.Halloweendiamond());
+				world.dropItem(bats.getLocation(), plugin.Halloweendiamond());
 				world.playSound(bats.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 10, 1);
 				world.spawnParticle(Particle.FIREWORKS_SPARK, bats.getLocation(), 5);
 				bats.setHealth(0.0);
