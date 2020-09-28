@@ -13,7 +13,6 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 
 import smp.picnic.halloweenkit.Halloween;
-import smp.picnic.halloweenkit.Main;
 import smp.picnic.halloweenkit.SnowballBat;
 
 public class ProjectileListener implements Listener {
@@ -23,9 +22,8 @@ public class ProjectileListener implements Listener {
 	
 	SnowballBat snowballbatInst = new SnowballBat(halloween);
 	
-	Main main;
-	public ProjectileListener(Main instance) {
-		this.main = instance;
+	public ProjectileListener (Halloween instance) {
+		halloween = instance;
 	}
 
 	@EventHandler()

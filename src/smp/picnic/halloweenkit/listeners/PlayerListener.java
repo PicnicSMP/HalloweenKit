@@ -16,7 +16,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import smp.picnic.halloweenkit.Halloween;
 import smp.picnic.halloweenkit.HorseConverter;
-import smp.picnic.halloweenkit.Main;
 
 public class PlayerListener implements Listener {
 	
@@ -25,11 +24,9 @@ public class PlayerListener implements Listener {
 	Halloween halloweenInst = new Halloween(halloween);
 	HorseConverter horseconverterInst = new HorseConverter(halloween);
 	
-	Main main;
-	public PlayerListener(Main instance) {
-		this.main = instance;
+	public PlayerListener (Halloween instance) {
+		halloween = instance;
 	}
-	
 	
 	@EventHandler()
 	public void onHorseClick(PlayerInteractEntityEvent e) {

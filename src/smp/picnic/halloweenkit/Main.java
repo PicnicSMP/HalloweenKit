@@ -18,9 +18,9 @@ public class Main extends JavaPlugin implements Listener {
 		Halloween halloweenInst = new Halloween(this);
 		this.getCommand("halloween").setExecutor(halloweenInst);
 
-		Bukkit.getServer().getPluginManager().registerEvents(new ProjectileListener(this), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new ProjectileListener(halloweenInst), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(halloweenInst), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(halloweenInst), this);
 		
 				
 	}
