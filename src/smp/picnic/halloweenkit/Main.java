@@ -8,17 +8,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 */
 import smp.picnic.halloweenkit.listeners.MobListener;
 import smp.picnic.halloweenkit.listeners.PlayerListener;
+import smp.picnic.halloweenkit.listeners.ProjectileListener;
 
 public class Main extends JavaPlugin implements Listener {
 
+	
 	@Override
 	public void onEnable() {
 		Halloween halloweenInst = new Halloween(this);
-		Bukkit.getServer().getPluginManager().registerEvents(halloweenInst, this);
-		Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(halloweenInst), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(halloweenInst), this);
+		this.getCommand("halloween").setExecutor(halloweenInst);
+
+		Bukkit.getServer().getPluginManager().registerEvents(new ProjectileListener(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new MobListener(this), this);
 		
-		this.getCommand("halloween").setExecutor(halloweenInst);		
+				
 	}
 	
 	
@@ -28,6 +32,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void onDisable() {
 
 	}
+
 
 
 }

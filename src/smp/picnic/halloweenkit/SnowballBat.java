@@ -16,8 +16,35 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
+
 public class SnowballBat {
 
+	SnowballBat snowballbatInst;
+	
+	public SnowballBat(SnowballBat snowballBatInst) {
+		
+		this.snowballbatInst = snowballBatInst;
+	}
+	
+	Halloween halloweenInst;
+	
+	public SnowballBat(Halloween halloween) {
+		this.halloweenInst = halloween;
+	}
+	
+	PumpkinHeadManager pumpkinheadManagerInst;
+	
+	public SnowballBat(PumpkinHeadManager pumpkinheadmanagerInst) {
+		this.pumpkinheadManagerInst = pumpkinheadmanagerInst;
+	}
+	
+	Main main;
+	
+	public SnowballBat(Main instance) {
+		this.main = instance;
+	}
+
+	
 	public ItemStack snowBat() {
 		String itemLore = "Throw me!";
 		ItemStack snowbat = new ItemStack(Material.SNOWBALL);
@@ -45,7 +72,7 @@ public class SnowballBat {
 		 
 			@Override
 			public void run() {
-				world.dropItem(bats.getLocation(), Halloweendiamond());
+				world.dropItem(bats.getLocation(), halloweenInst.Halloweendiamond());
 				world.playSound(bats.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 10, 1);
 				world.spawnParticle(Particle.FIREWORKS_SPARK, bats.getLocation(), 5);
 				bats.setHealth(0.0);

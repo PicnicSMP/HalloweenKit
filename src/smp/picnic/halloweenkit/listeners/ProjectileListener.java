@@ -12,14 +12,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 
+import smp.picnic.halloweenkit.Main;
+import smp.picnic.halloweenkit.SnowballBat;
+
 public class ProjectileListener implements Listener {
 	ArrayList<UUID> halloweenBalls = new ArrayList<UUID>();
+
+	SnowballBat snowballbat;
+	
+	SnowballBat snowballbatInst = new SnowballBat(snowballbat);
+	
+	Main main;
+	public ProjectileListener(Main instance) {
+		this.main = instance;
+	}
 
 	@EventHandler()
 	public void onLaunch(ProjectileLaunchEvent e) {
 		if (e.getEntity().getShooter() instanceof Player) {
 			Player player = (Player) e.getEntity().getShooter();
-			if(player.getInventory().getItemInMainHand().isSimilar(snowBat()))
+			if(player.getInventory().getItemInMainHand().isSimilar(snowballbatInst.snowBat()))
 					{
 					            halloweenBalls.add(e.getEntity().getUniqueId());
 					}
@@ -35,11 +47,11 @@ public class ProjectileListener implements Listener {
 				BlockFace hitFace = (BlockFace) e.getHitBlockFace();
 				Block relativeBlock = e.getHitBlock().getRelative(hitFace);
 				Location loc = relativeBlock.getLocation();
-				spawnBat(loc);
+				snowballbatInst.spawnBat(loc);
 			}
 			else if (!(e.getEntityType() == null)) {
 				Location loc = e.getEntity().getLocation();
-				spawnBat(loc);
+				snowballbatInst.spawnBat(loc);
 			}
 		}
 	}

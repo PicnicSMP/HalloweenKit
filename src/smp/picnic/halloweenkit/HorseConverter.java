@@ -17,7 +17,24 @@ import org.bukkit.entity.ZombieHorse;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import smp.picnic.halloweenkit.listeners.PlayerListener;
+
 public class HorseConverter {
+	
+	Halloween halloweenInst;
+	
+	public HorseConverter(Halloween instance) {
+		this.halloweenInst = instance;
+	}
+	
+	PlayerListener playerlistenerInst;
+	
+	public HorseConverter(PlayerListener instance) {
+		this.playerlistenerInst = instance;
+	}
+	
+	
+	
 	public ItemStack getHorseBone() {
 		String itemLore = "Right Click me on a horse";
 		ItemStack HorseBone = new ItemStack(Material.BONE);

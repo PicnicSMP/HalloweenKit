@@ -4,48 +4,46 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Bat;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.SkeletonHorse;
-import org.bukkit.entity.ZombieHorse;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+
+import smp.picnic.halloweenkit.listeners.PlayerListener;
 
 public class Halloween implements CommandExecutor, Listener {
 
 	String worldName = "world";
-	private final smp.picnic.halloweenkit.Main main;
-
-
-	public Halloween(smp.picnic.halloweenkit.Main main) {
-		this.main = main;
+	
+	Halloween halloweenInst;
+	
+	public Halloween(Halloween instance) {
+		
+		this.halloweenInst = instance;
 	}
+	
+	PlayerListener playerlistenerInst;
+	
+	public Halloween(PlayerListener instance) {
+		
+		this.playerlistenerInst = instance;
+	}
+	
+	Main main;
+	public Halloween(Main instance) {
+		this.main = instance;
+	}
+	
+	
+	SnowballBat snowballbatInst = new SnowballBat(halloweenInst);
+	
+	HorseConverter horseconverterInst = new HorseConverter(halloweenInst);
 
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
     
@@ -94,14 +92,14 @@ public class Halloween implements CommandExecutor, Listener {
 			int Amount_pumpkinPie = 16;
 			
 			for (int i = 0; i < Amount_snowBat; i++) {
-			player.getInventory().addItem(snowBat());
+			player.getInventory().addItem(snowballbatInst.snowBat());
 			}
 			for (int i = 0; i < Amount_pumpkinPie; i++) {
 			player.getInventory().addItem(pumpkinPie());
 			}
 			
-			player.getInventory().addItem(getHorseBone());
-			player.getInventory().addItem(HorseFlesh());
+			player.getInventory().addItem(horseconverterInst.getHorseBone());
+			player.getInventory().addItem(horseconverterInst.getHorseFlesh());
 			
 			return true;
 		}

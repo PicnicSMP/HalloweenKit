@@ -16,15 +16,20 @@ import org.bukkit.potion.PotionEffectType;
 
 import smp.picnic.halloweenkit.Halloween;
 import smp.picnic.halloweenkit.HorseConverter;
+import smp.picnic.halloweenkit.Main;
 
 public class PlayerListener implements Listener {
 	
-	private Halloween halloweenInst;
-	private HorseConverter horseConverter;
-	public PlayerListener (Halloween halloweenInst) {
-		this.halloweenInst = halloweenInst;
-		this.horseConverter = new HorseConverter();
+	private PlayerListener playerlistenerInst;
+	
+	Halloween halloweenInst = new Halloween(playerlistenerInst);
+	HorseConverter horseconverterInst = new HorseConverter(playerlistenerInst);
+	
+	Main main;
+	public PlayerListener(Main instance) {
+		this.main = instance;
 	}
+	
 	
 	@EventHandler()
 	public void onHorseClick(PlayerInteractEntityEvent e) {
@@ -34,19 +39,19 @@ public class PlayerListener implements Listener {
 		
 		if (e.getRightClicked().getType() == EntityType.HORSE) {
 			
-			if (player.getInventory().getItemInMainHand().isSimilar(this.horseConverter.getHorseBone())){ 			 								//Check the item in the players main hand and compare it with ItemStack HorseBone()
+			if (player.getInventory().getItemInMainHand().isSimilar(horseconverterInst.getHorseBone())){ 			 								//Check the item in the players main hand and compare it with ItemStack HorseBone()
 				if (player.getGameMode() != GameMode.CREATIVE) { 															//If the players gamemode is not creative remove one from the item stack
 					player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() -1);
 				}
-				this.horseConverter.convertToSkeletonHorse(horse, player, world);
+				horseconverterInst.convertToSkeletonHorse(horse, player, world);
 			}
 				
-			else if (player.getInventory().getItemInMainHand().isSimilar(this.horseConverter.getHorseFlesh())) {
+			else if (player.getInventory().getItemInMainHand().isSimilar(horseconverterInst.getHorseFlesh())) {
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() -1);
 				}
 				
-				this.horseConverter.convertToZombieHorse(horse, player, world);
+				horseconverterInst.convertToZombieHorse(horse, player, world);
 				
 			}
 		}	
