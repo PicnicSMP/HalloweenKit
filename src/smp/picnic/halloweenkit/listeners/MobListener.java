@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import smp.picnic.halloweenkit.Halloween;
+import smp.picnic.halloweenkit.HalloweenKit;
 import smp.picnic.halloweenkit.PumpkinHeadManager;
 
 /**
@@ -17,17 +17,19 @@ import smp.picnic.halloweenkit.PumpkinHeadManager;
  *
  */
 public class MobListener implements Listener {
-	private PumpkinHeadManager pumpkinHeadManager;
-	public MobListener (Halloween halloweenInst) {
-		pumpkinHeadManager = new PumpkinHeadManager(halloweenInst);
-	}
 	
+	private PumpkinHeadManager pumpkinHeadManagerInst;
+	
+	public MobListener (HalloweenKit plugin) {
+		pumpkinHeadManagerInst = new PumpkinHeadManager(plugin);
+	}
+		
 	@EventHandler()
 	public void onCreatureSpawn (CreatureSpawnEvent event) {
 		//	Check the entity type, and confirm its a zombie.
 		EntityType spawnedEntityType = event.getEntityType();
 		if(spawnedEntityType == EntityType.ZOMBIE) {
-			pumpkinHeadManager.attemptConversion(event.getEntity());
+			pumpkinHeadManagerInst.attemptConversion(event.getEntity());
 		}
 	}
 	
@@ -36,8 +38,8 @@ public class MobListener implements Listener {
 		//	Check the entity type, and confirm its a zombie.
 		EntityType deadEntityType = event.getEntityType();
 		if(deadEntityType == EntityType.ZOMBIE) {
-			if(pumpkinHeadManager.hasJackOHat(event)){
-				pumpkinHeadManager.setCustomDrops(event);
+			if(pumpkinHeadManagerInst.hasJackOHat(event)){
+				pumpkinHeadManagerInst.setCustomDrops(event);
 			}
 		}
 	}

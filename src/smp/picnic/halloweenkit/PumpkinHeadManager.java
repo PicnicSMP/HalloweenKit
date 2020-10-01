@@ -16,8 +16,6 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import smp.picnic.halloweenkit.Halloween;
-
 /**
  * @author David
  */
@@ -30,12 +28,16 @@ public class PumpkinHeadManager {
 	public static int BAT_RATE_MIN = 3;
 	public static int BAT_RATE_MAX = 7;
 	
-	private Halloween halloweenInst;
+	private HalloweenKit plugin;
 	
-	public PumpkinHeadManager (Halloween halloweenInst) {
-		this.halloweenInst = halloweenInst;
+	private SnowballBat snowballbatInst;
+	
+	public PumpkinHeadManager (HalloweenKit plugin) {
+		this.plugin = plugin;
+		this.snowballbatInst = new SnowballBat(plugin);
 	}
 	
+
 	public boolean attemptConversion(LivingEntity zombie) {
 		if(randomSelection()) {
 			convertZombie( zombie );
@@ -62,7 +64,7 @@ public class PumpkinHeadManager {
 		// Set PumpkinPie Drop Count, offset by MIN drop rate.
 		int randomInt = Math.max(rand.nextInt(PumpkinHeadManager.DROP_RATE_MAX + 1), PumpkinHeadManager.DROP_RATE_MIN);
 		if(randomInt != 0) {
-			ItemStack pies  = this.halloweenInst.pumpkinPie();
+			ItemStack pies  = this.plugin.pumpkinPie();
 			pies.setAmount(randomInt);
 			drops.add(pies);
 		}
@@ -70,7 +72,7 @@ public class PumpkinHeadManager {
 		Location loc = event.getEntity().getLocation();
 		randomInt = Math.max(rand.nextInt(PumpkinHeadManager.BAT_RATE_MAX + 1), PumpkinHeadManager.BAT_RATE_MIN);
 		while(--randomInt > 0) {
-			this.halloweenInst.spawnBat(loc);
+			snowballbatInst.spawnBat(loc);
 		}
 	}
 	
@@ -79,7 +81,7 @@ public class PumpkinHeadManager {
 		zombiesStuff.clear();
 		
 		zombiesStuff.setHelmet(getJackOHat());
-		zombiesStuff.setHelmetDropChance(1.0F);
+		zombiesStuff.setHelmetDropChance(0.3F);
 	}
 	
 	//	Generate the halloween Jack'O'Hat for out Zombies
