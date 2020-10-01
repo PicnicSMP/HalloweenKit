@@ -81,7 +81,7 @@ public class PumpkinHeadManager {
 		zombiesStuff.clear();
 		
 		zombiesStuff.setHelmet(getJackOHat());
-		zombiesStuff.setHelmetDropChance(1.0F);
+		zombiesStuff.setHelmetDropChance(0.3F);
 	}
 	
 	//	Generate the halloween Jack'O'Hat for out Zombies

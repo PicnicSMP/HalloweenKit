@@ -2,6 +2,7 @@ package smp.picnic.halloweenkit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +20,8 @@ import org.bukkit.plugin.Plugin;
 
 public class SnowballBat {
 
+	public static int DROP_RATE = 3; // 1 in 3 will drop a diamond
+	
 	private HalloweenKit plugin;
 	
 	public SnowballBat(HalloweenKit plugin) {
@@ -52,10 +55,18 @@ public class SnowballBat {
 		 
 			@Override
 			public void run() {
-				world.dropItem(bats.getLocation(), plugin.Halloweendiamond());
+				if(randomSelection()) {
+					world.dropItem(bats.getLocation(), plugin.Halloweendiamond());
+				}
 				world.playSound(bats.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 10, 1);
 				world.spawnParticle(Particle.FIREWORKS_SPARK, bats.getLocation(), 5);
 				bats.setHealth(0.0);
+			}
+			
+			private boolean randomSelection () {
+				Random rand = new Random();
+				int randomInt = rand.nextInt(SnowballBat.DROP_RATE);
+				return randomInt == 0;
 			}
 	 
 		}, 20*deathTime);

@@ -8,12 +8,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
 import smp.picnic.halloweenkit.HalloweenKit;
 import smp.picnic.halloweenkit.HorseConverter;
 import smp.picnic.halloweenkit.SnowballBat;
 
 public class Halloween implements CommandExecutor {
 
+	public static int AMOUNT_SNOWBAT = 4;
+	public static int AMOUNT_PUMPKINPIE = 16;
+	
 	String worldName = "world";
 	
 	HalloweenKit plugin;
@@ -68,15 +73,13 @@ public class Halloween implements CommandExecutor {
 			
 			player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Happy Halloween!");
 			
-			int Amount_snowBat = 5;
-			int Amount_pumpkinPie = 16;
+			ItemStack snowballBats = snowballbatInst.snowBat();
+			snowballBats.setAmount(AMOUNT_SNOWBAT);
+			player.getInventory().addItem(snowballBats);
 			
-			for (int i = 0; i < Amount_snowBat; i++) {
-			player.getInventory().addItem(snowballbatInst.snowBat());
-			}
-			for (int i = 0; i < Amount_pumpkinPie; i++) {
-			player.getInventory().addItem(plugin.pumpkinPie());
-			}
+			ItemStack pumpkinPies = plugin.pumpkinPie();
+			pumpkinPies.setAmount(AMOUNT_PUMPKINPIE);
+			player.getInventory().addItem(pumpkinPies);
 			
 			player.getInventory().addItem(horseconverterInst.getHorseBone());
 			player.getInventory().addItem(horseconverterInst.getHorseFlesh());
