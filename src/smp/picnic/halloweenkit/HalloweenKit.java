@@ -1,5 +1,6 @@
 package smp.picnic.halloweenkit;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +21,12 @@ import smp.picnic.halloweenkit.listeners.ProjectileListener;
 import smp.picnic.halloweenkit.commands.Halloween;
 
 public class HalloweenKit extends JavaPlugin implements Listener {
-
+	
+	
 	
 	@Override
 	public void onEnable() {
+		
 		this.getCommand("halloween").setExecutor(new Halloween(this));
 		
 		Bukkit.getServer().getPluginManager().registerEvents(new ProjectileListener(this), this);
@@ -37,9 +40,17 @@ public class HalloweenKit extends JavaPlugin implements Listener {
 
 	@Override
 	public void onDisable() {
-
+		
+		
 	}
 
+	
+	
+	public void loadConfig() {
+	}
+	
+
+	
 	public ItemStack pumpkinPie() {
 		String itemLore = "Halloween Snack";
 		ItemStack pumpkinpie = new ItemStack(Material.PUMPKIN_PIE);

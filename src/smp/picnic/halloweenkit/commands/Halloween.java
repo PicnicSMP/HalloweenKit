@@ -1,14 +1,15 @@
 package smp.picnic.halloweenkit.commands;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import smp.picnic.halloweenkit.HalloweenKit;
 import smp.picnic.halloweenkit.HorseConverter;
@@ -18,6 +19,7 @@ public class Halloween implements CommandExecutor {
 
 	public static int AMOUNT_SNOWBAT = 4;
 	public static int AMOUNT_PUMPKINPIE = 16;
+	
 	
 	String worldName = "world";
 	
@@ -30,12 +32,15 @@ public class Halloween implements CommandExecutor {
 	
 	HorseConverter horseconverterInst = new HorseConverter(this.plugin);
 
-	Map<String, Long> cooldowns = new HashMap<String, Long>();
     
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		int cooldown = 500;
+		Player player = (Player) sender;
+		PersistentDataContainer playerdata = player.getPersistentDataContainer();
+		
+		
+		
 		
 		if (label.equalsIgnoreCase("halloween")) {
 			if (!(sender instanceof Player)) {
@@ -43,7 +48,7 @@ public class Halloween implements CommandExecutor {
 				return true;
 			}
 			
-			Player player = (Player) sender;
+			
 			
 			if (!(player.hasPermission("halloween.use"))){
 				player.sendMessage(ChatColor.RED + "You do not have permission!");
@@ -55,20 +60,23 @@ public class Halloween implements CommandExecutor {
 				return true;
 			}
 			
-			if (cooldowns.containsKey(player.getName()) && (player.hasPermission("halloween.use.nocooldown"))) {
-				cooldowns.remove(player.getName());
+			if (( playerdata.has(new NamespacedKey(plugin, "cooldown"), PersistentDataType.INTEGER)) && (player.hasPermission("halloween.use.nocooldown"))) {
+				playerdata.remove(new NamespacedKey(plugin, "cooldown"));
 			}
 			
-			if (cooldowns.containsKey(player.getName())) {
-				if (cooldowns.get(player.getName()) > System.currentTimeMillis()){
-					long timeleft = (cooldowns.get(player.getName()) - System.currentTimeMillis())/1000;
-					player.sendMessage(ChatColor.RED + "You can use this command again in " + timeleft + " seconds");
+			if (playerdata.has(new NamespacedKey(plugin, "cooldown"), PersistentDataType.INTEGER)) {
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Come back next year !"));
 					return true;
 				}
-			}
+			
 			
 			if (!(player.hasPermission("halloween.use.nocooldown"))){
-				cooldowns.put(player.getName(), System.currentTimeMillis() + (cooldown * 1000));
+				playerdata.set(new NamespacedKey(plugin, "cooldown"), PersistentDataType.INTEGER ,  1);
+				
+				
+				
+				
+				
 			}
 			
 			player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Happy Halloween!");
