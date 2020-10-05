@@ -38,7 +38,7 @@ public class MobListener implements Listener {
 		//	Check the entity type, and confirm its a zombie.
 		EntityType deadEntityType = event.getEntityType();
 		if(deadEntityType == EntityType.ZOMBIE) {
-			if(pumpkinHeadManagerInst.hasJackOHat(event)){
+			if(pumpkinHeadManagerInst.isJackOHat(event)){
 				pumpkinHeadManagerInst.setCustomDrops(event);
 			}
 		}

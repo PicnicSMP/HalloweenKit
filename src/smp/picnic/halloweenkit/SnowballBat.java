@@ -20,7 +20,7 @@ import org.bukkit.plugin.Plugin;
 
 public class SnowballBat {
 
-	public static int DROP_RATE = 3; // 1 in 3 will drop a diamond
+	public static int DROP_RATE = 5; // 1 in 5 will drop a diamond
 	
 	private HalloweenKit plugin;
 	
