@@ -6,15 +6,20 @@ package smp.picnic.halloweenkit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 /**
  * @author David
@@ -32,9 +37,12 @@ public class PumpkinHeadManager {
 	
 	private SnowballBat snowballbatInst;
 	
+	private NamespacedKey namespacedKey;
+	
 	public PumpkinHeadManager (HalloweenKit plugin) {
 		this.plugin = plugin;
 		this.snowballbatInst = new SnowballBat(plugin);
+		this.namespacedKey = new NamespacedKey(plugin, "PumpkinHeadManager");
 	}
 	
 
@@ -46,18 +54,13 @@ public class PumpkinHeadManager {
 		return false;
 	}
 	
-	public boolean hasJackOHat(EntityDeathEvent event) {
-		List<ItemStack> drops = event.getDrops();
-		boolean found = false;
-		int i = drops.size();
-		while(!found && i > 0) {
-			ItemStack item = drops.get(--i);
-			found = (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Jack'O'Hat"));
-		}
-		return found;
+	public boolean isJackOHat(EntityDeathEvent event) {
+		PersistentDataContainer zData = event.getEntity().getPersistentDataContainer();
+		return zData.has(this.namespacedKey, PersistentDataType.INTEGER);
 	}
 	
 	public void setCustomDrops(EntityDeathEvent event) {
+		
 		List<ItemStack> drops = event.getDrops();
 		Random rand = new Random();
 		
@@ -71,12 +74,16 @@ public class PumpkinHeadManager {
 		
 		Location loc = event.getEntity().getLocation();
 		randomInt = Math.max(rand.nextInt(PumpkinHeadManager.BAT_RATE_MAX + 1), PumpkinHeadManager.BAT_RATE_MIN);
+		
 		while(--randomInt > 0) {
 			snowballbatInst.spawnBat(loc);
 		}
 	}
 	
 	private void convertZombie (LivingEntity zombie) {
+		PersistentDataContainer zData = zombie.getPersistentDataContainer();
+		zData.set(this.namespacedKey, PersistentDataType.INTEGER, 1);
+		
 		EntityEquipment zombiesStuff = zombie.getEquipment();
 		zombiesStuff.clear();
 		
